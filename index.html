@@ -51,20 +51,23 @@
   <div class="buttons">
     <button class="water" onclick="growTree()">💧 물 (슬픔)</button>
     <button class="sun" onclick="growTree()">☀️ 해 (기쁨)</button>
-    <button class="soil" onclick="growTree()">🪴 흙 (보통)</button>
+    <button class="soil" onclick="growTree()">🥔 흙 (보통)</button>
     <button class="fertilizer" onclick="growTree()">🧪 비료 (짜증)</button>
   </div>
 
   <script>
-    let growLevel = 0;
+    let clickCount = 0;
     const treeImages = ["seed.png", "sprout.png", "small-tree.png", "big-tree.png"];
+    const totalClicks = 25;
+    const stageStep = Math.floor(totalClicks / (treeImages.length - 1)); // 25 / 3 ≈ 8
 
     function growTree() {
-      if (growLevel < treeImages.length - 1) {
-        growLevel++;
-        document.getElementById("tree-image").src = treeImages[growLevel];
-      } else {
-        alert("나무가 모두 자랐어요! ");
+      clickCount++;
+      const stage = Math.min(Math.floor(clickCount / stageStep), treeImages.length - 1);
+      document.getElementById("tree-image").src = treeImages[stage];
+
+      if (stage === treeImages.length - 1 && clickCount === totalClicks) {
+        alert("나무가 모두 자랐어요! 🌳");
       }
     }
   </script>
